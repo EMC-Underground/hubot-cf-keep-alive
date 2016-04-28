@@ -6,7 +6,7 @@ scheduler = BackgroundScheduler()
 
 def keep_alive():
   url = os.getenv('HUBOT_URL')
-  r = requests.post(url, data = json.dumps({"Message":"Staying alive!"}))
+  r = requests.post("{0}hubot/alive".format(url), data = json.dumps({"message":"Staying alive!","room":"{0}".format(os.getenv('HUBOT_ROOM'))}))
 
 if __name__ == '__main__':
   scheduler.add_job(keep_alive, 'interval', seconds=20)
