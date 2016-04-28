@@ -1,0 +1,6 @@
+---
+applications:
+- name: hubot-staty-alive
+  memory: 512M
+  buildpack: python_buildpack
+  command: python driver.py
