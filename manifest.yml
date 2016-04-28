@@ -1,6 +1,6 @@
 ---
 applications:
-- name: hubot-staty-alive
+- name: hubot-stay-alive
   memory: 512M
   buildpack: python_buildpack
   command: python driver.py
