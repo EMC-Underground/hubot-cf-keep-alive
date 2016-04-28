@@ -1,8 +1,11 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler import events
+from flask import Flask, request, jsonify
 import os, time, requests, json
 
+app = Flask(__name__)
 scheduler = BackgroundScheduler()
+port = int(os.getenv('VCAP_APP_PORT', 8080))
 
 def keep_alive():
   url = os.getenv('HUBOT_URL')
@@ -15,6 +18,12 @@ def error_listener(event):
     print("{0}".format(event.traceback))
   else:
     print("The job worked!")
+    
+# Routes
+@app.route('/')
+def hello_world():
+  return 'Hello World!'
+
 
 if __name__ == '__main__':
   scheduler.add_job(keep_alive, 'interval', seconds=20)
@@ -22,9 +31,8 @@ if __name__ == '__main__':
   scheduler.start()
 
   try:
-    # This is here to simulate application activity (which keeps the main thread alive).
-    while True:
-      time.sleep(2)
+    app.run(host='0.0.0.0', port=port)
+    
   except (KeyboardInterrupt, SystemExit):
     # Not strictly necessary if daemonic mode is enabled but should be done if possible
     scheduler.shutdown()
