@@ -1,1 +1,1 @@
-worker: python driver.py
+web: python driver.py
