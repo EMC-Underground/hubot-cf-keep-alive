@@ -9,7 +9,7 @@ port = int(os.getenv('VCAP_APP_PORT', 8080))
 
 def keep_alive():
   url = os.getenv('HUBOT_URL')
-  r = requests.post("{0}hubot/alive".format(url), data = json.dumps({"message":"Staying alive!","room":"{0}".format(os.getenv('HUBOT_ROOM'))}))
+  r = requests.post('{0}hubot/alive'.format(url), data = json.dumps({'message':'Staying alive!','room':'{0}'.format(os.getenv('HUBOT_ROOM'))}))
 
 # listener to give visibility into job completetion
 def error_listener(event):
