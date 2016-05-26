@@ -1,6 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler import events
 from flask import Flask, request, jsonify
+from random import randint
 import os, time, requests, json
 
 app = Flask(__name__)
@@ -9,7 +10,9 @@ port = int(os.getenv('VCAP_APP_PORT', 8080))
 
 def keep_alive():
   url = os.getenv('HUBOT_URL')
-  r = requests.post('{0}hubot/alive'.format(url), data = json.dumps({'message':'Staying alive!','room':'{0}'.format(os.getenv('HUBOT_ROOM'))}))
+  randIndex = randint(0,9)
+  responses = ["Staying alive!","Onward!","Geronimo!","Get your coat!","Allons-y Alonso!","Come along now then...","I know the secrets of the fire swamp!","I am not left-handed!","Made you look! >_<","bleh"]
+  r = requests.post('{0}hubot/alive'.format(url), data = json.dumps({'message':'{0}'.format(responses[randIndex]),'room':'{0}'.format(os.getenv('HUBOT_ROOM'))}))
 
 # listener to give visibility into job completetion
 def error_listener(event):
@@ -29,6 +32,7 @@ if __name__ == '__main__':
   scheduler.add_job(keep_alive, 'interval', hours=8)
   scheduler.add_listener(error_listener, events.EVENT_JOB_EXECUTED | events.EVENT_JOB_ERROR)
   scheduler.start()
+  keep_alive()
 
   try:
     app.run(host='0.0.0.0', port=port)
