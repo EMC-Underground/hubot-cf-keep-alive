@@ -18,7 +18,7 @@ def error_listener(event):
     print("{0}".format(event.traceback))
   else:
     print("The job worked!")
-    
+
 # Routes
 @app.route('/')
 def hello_world():
@@ -26,13 +26,13 @@ def hello_world():
 
 
 if __name__ == '__main__':
-  scheduler.add_job(keep_alive, 'interval', hours=12)
+  scheduler.add_job(keep_alive, 'interval', hours=8)
   scheduler.add_listener(error_listener, events.EVENT_JOB_EXECUTED | events.EVENT_JOB_ERROR)
   scheduler.start()
 
   try:
     app.run(host='0.0.0.0', port=port)
-    
+
   except (KeyboardInterrupt, SystemExit):
     # Not strictly necessary if daemonic mode is enabled but should be done if possible
     scheduler.shutdown()
