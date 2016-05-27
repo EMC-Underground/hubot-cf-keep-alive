@@ -15,7 +15,7 @@ def keep_alive():
   room = os.getenv('HUBOT_ROOM')
   print(room)
   print(responses[randIndex])
-  r = requests.post('{0}hubot/alive'.format(url), data = json.dumps({'message':'{0}'.format(responses[randIndex]),'room':'{0}'.format(room)}))
+  r = requests.post('{0}hubot/alive'.format(url), data = {'message':'{0}'.format(responses[randIndex]),'room':'{0}'.format(room)})
 
 # listener to give visibility into job completetion
 def error_listener(event):
