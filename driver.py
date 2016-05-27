@@ -32,7 +32,7 @@ def hello_world():
 
 
 if __name__ == '__main__':
-  scheduler.add_job(keep_alive, 'interval', minutes=1)
+  scheduler.add_job(keep_alive, 'interval', hours=6)
   scheduler.add_listener(error_listener, events.EVENT_JOB_EXECUTED | events.EVENT_JOB_ERROR)
   scheduler.start()
 
