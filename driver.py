@@ -32,7 +32,6 @@ if __name__ == '__main__':
   scheduler.add_job(keep_alive, 'interval', hours=6)
   scheduler.add_listener(error_listener, events.EVENT_JOB_EXECUTED | events.EVENT_JOB_ERROR)
   scheduler.start()
-  keep_alive()
 
   try:
     app.run(host='0.0.0.0', port=port)
